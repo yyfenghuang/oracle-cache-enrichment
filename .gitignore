@@ -1,0 +1,33 @@
+# Sandbox: local scratch space for hand iteration, never tracked.
+# Draft animation scripts, throwaway plots, and quick notebook experiments
+# live here until something is finished enough to promote into the
+# tracked structure (cache_enrichment.py, tests/, notebook/, assets/).
+sandbox/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environment
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor noise
+.DS_Store
+.vscode/
+*.swp
+
+# Model weights and caches: never commit these into the repo.
+# Hugging Face downloads belong in the shared ~/.cache/huggingface, not here.
+*.safetensors
+*.bin
+*.pt
+*.ckpt

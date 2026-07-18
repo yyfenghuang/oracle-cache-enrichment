@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/fenghuang/workspace/oracle-cache-enrichment/run_experiment.py", line 38, in <module>
+    from extractor import EXTRACTORS
+ImportError: cannot import name 'EXTRACTORS' from 'extractor' (/home/fenghuang/workspace/oracle-cache-enrichment/extractor.py)
