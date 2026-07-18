@@ -1,92 +1,332 @@
 {
-  "_readme": "Hand-labeled by reading raw model output directly (run_experiment_guide.md Step 2), before trusting extractor.py output. label = the letter a human reading raw text judges the model actually answered for THIS question, ignoring anything the model generates after that first coherent answer (invented questions, restated letters, degeneration loops). null means genuinely ambiguous or unparseable to a human, not just to the current extractor. 'note' flags a raw-text shape worth keeping in mind for extractor edge cases; it is not a defect report.",
+  "_readme": "Hand-labeled by reading raw model output directly (run_experiment_guide.md Step 2), before trusting extractor.py output. label = the letter a human reading raw text judges the model actually answered for THIS question, ignoring anything the model generates after that first coherent answer (invented questions, restated letters, degeneration loops). null means genuinely ambiguous or unparseable to a human, not just to the current extractor. note flags a raw-text shape worth keeping in mind for extractor edge cases; it is not a defect report. raw holds the exact raw_output string for each condition, parsed programmatically out of the source probe.log (see parse_probe.py at the time this file was built) so that test_extractor_probe.py can run the actual parsers against it rather than trusting the label in isolation.",
   "0": {
-    "subject": "international_law", "gold": "C",
-    "label": {"direct": "A", "few_shot": "C", "oracle": "C"}
+    "subject": "international_law",
+    "gold": "C",
+    "label": {
+      "direct": "A",
+      "few_shot": "C",
+      "oracle": "C"
+    },
+    "len_E": 528,
+    "len_X": 100,
+    "raw": {
+      "direct": " A\n\nExplanation:\nThe contiguous zone is a zone in which the coastal State is permitted to prevent and punish infringements of customs, fiscal, immigration or sanitary laws",
+      "few_shot": " C\n\nQuestion: What is the function of the contiguous zone?\nA. The contiguous zone functions as a security zone of the coastal State\nB. The contiguous",
+      "oracle": " C\n\nQuestionostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenosten"
+    }
   },
   "1": {
-    "subject": "high_school_chemistry", "gold": "C",
-    "label": {"direct": "A", "few_shot": "B", "oracle": "B"}
+    "subject": "high_school_chemistry",
+    "gold": "C",
+    "label": {
+      "direct": "A",
+      "few_shot": "B",
+      "oracle": "B"
+    },
+    "len_E": 411,
+    "len_X": 78,
+    "raw": {
+      "direct": " A\n\n**Step-by-Step Explanation:**\n\nStep 1: The reaction is written as 2Ag+(aq) + Fe(s) \u2192 2",
+      "few_shot": " B\n\nQuestion: A solution contains 0.00100 mol of NaCl and 0.00100 mol of CaCl",
+      "oracle": " B\n\nQuestion.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n"
+    }
   },
   "2": {
-    "subject": "high_school_chemistry", "gold": "C",
-    "label": {"direct": "A", "few_shot": "A", "oracle": "A"},
-    "note": "direct restates the same letter ('A\\nAnswer:\\nA') before explanation. No contradiction, but a shape worth having in the test set."
+    "subject": "high_school_chemistry",
+    "gold": "C",
+    "label": {
+      "direct": "A",
+      "few_shot": "A",
+      "oracle": "A"
+    },
+    "note": "direct restates the same letter ('A\\nAnswer:\\nA') before explanation. No contradiction, but a shape worth having in the test set.",
+    "len_E": 411,
+    "len_X": 121,
+    "raw": {
+      "direct": " A\nAnswer:\nA\n\n**Step-by-Step Explanation:**\n\nThe decomposition of hypochlorous acid (HClO) into chlorine gas (Cl",
+      "few_shot": " A\n\nQuestion: A solution contains 2.00 mole of acetic acid, CH3COOH, and 1.00 mole of calcium",
+      "oracle": " A.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nidden.\n\n****************"
+    }
   },
   "3": {
-    "subject": "high_school_us_history", "gold": "A",
-    "label": {"direct": "B", "few_shot": "A", "oracle": "A"}
+    "subject": "high_school_us_history",
+    "gold": "A",
+    "label": {
+      "direct": "B",
+      "few_shot": "A",
+      "oracle": "A"
+    },
+    "len_E": 1906,
+    "len_X": 390,
+    "raw": {
+      "direct": " B\nAnswer:\nThe correct answer is B. The conclusion that best supports the information in the excerpt is that Lincoln won the Election of 1864",
+      "few_shot": " A\n\nQuestion: This question refers to the following information.\n\"During the time of the American Revolution, the British and the French both had their own governments.",
+      "oracle": " A\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n"
+    }
   },
   "4": {
-    "subject": "jurisprudence", "gold": "B",
-    "label": {"direct": "C", "few_shot": "C", "oracle": "C"},
-    "note": "few_shot raw is 'C\\nAnswer:\\nA\\n\\nQuestion: ...' - model states C first, then contradicts itself with 'Answer:\\nA' while sliding into a hallucinated new question. Human reading judges C as the real answer (first token, before the self-contradiction). Kept as an adversarial case for test_extractor_probe.py."
+    "subject": "jurisprudence",
+    "gold": "B",
+    "label": {
+      "direct": "C",
+      "few_shot": "C",
+      "oracle": "C"
+    },
+    "note": "few_shot raw is 'C\\nAnswer:\\nA\\n\\nQuestion: ...' - model states C first, then contradicts itself with 'Answer:\\nA' while sliding into a hallucinated new question. Human reading judges C as the real answer (first token, before the self-contradiction). Kept as an adversarial case for test_extractor_probe.py.",
+    "len_E": 304,
+    "len_X": 61,
+    "raw": {
+      "direct": " C\nAnswer:\nThe correct answer is C. An Aquinian concept of natural law.\n\n**Step-by-Step Explanation:**\n\n1. **Understanding the",
+      "few_shot": " C\nAnswer:\nA\n\nQuestion: Which of the following statements best captures the nature of Fuller's 'inner morality of law'?\nA. A positivist",
+      "oracle": " C\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n"
+    }
   },
   "5": {
-    "subject": "computer_security", "gold": "B",
-    "label": {"direct": "B", "few_shot": "B", "oracle": "B"}
+    "subject": "computer_security",
+    "gold": "B",
+    "label": {
+      "direct": "B",
+      "few_shot": "B",
+      "oracle": "B"
+    },
+    "len_E": 300,
+    "len_X": 41,
+    "raw": {
+      "direct": " B. Condentiality\n\nExplanation: The Message condentiality or privacy means that the sender and the receiver expect that the message is not read by others.",
+      "few_shot": " B\n\nQuestion: Which of the following is not a type of encryption?\nA. AES\nB. DES\nC. RSA\nD. WEP\n",
+      "oracle": " B\n\nQuestionololololololololoolooloolooloolooloolooloolooloolooloolooloolooloolooloolooloolo"
+    }
   },
   "6": {
-    "subject": "professional_psychology", "gold": "C",
-    "label": {"direct": "D", "few_shot": "D", "oracle": "D"}
+    "subject": "professional_psychology",
+    "gold": "C",
+    "label": {
+      "direct": "D",
+      "few_shot": "D",
+      "oracle": "D"
+    },
+    "len_E": 483,
+    "len_X": 190,
+    "raw": {
+      "direct": " D\n\n**Reasoning:**\nThe question is about identifying the ethical standard that Dr. Black should follow based on her decision to divide the seminar into two parts",
+      "few_shot": " D\n\nQuestion: Which of the following is a characteristic of a sample?\nA. It is a subset of the population.\nB. It is a population.\n",
+      "oracle": " D\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    }
   },
   "7": {
-    "subject": "high_school_european_history", "gold": "A",
-    "label": {"direct": "A", "few_shot": "A", "oracle": "A"},
-    "note": "direct degenerates into 'Answer: A' repeated, no explanation at all. First evidence that Direct (not just Oracle) can collapse into a loop. Still unambiguous: every repeat is the same letter."
+    "subject": "high_school_european_history",
+    "gold": "A",
+    "label": {
+      "direct": "A",
+      "few_shot": "A",
+      "oracle": "A"
+    },
+    "note": "direct degenerates into 'Answer: A' repeated, no explanation at all. First evidence that Direct (not just Oracle) can collapse into a loop. Still unambiguous: every repeat is the same letter.",
+    "len_E": 2440,
+    "len_X": 301,
+    "raw": {
+      "direct": " A\nAnswer: A\nAnswer: A\nAnswer: A\nAnswer: A\n\nAnswer:\nAnswer: A\n\nAnswer:\nAnswer: A\n\nAnswer:\n",
+      "few_shot": " A\n\nQuestion: This question refers to the following information.\nThe following is a list of events that occurred in the United States in the years 178",
+      "oracle": " A\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\n"
+    }
   },
   "8": {
-    "subject": "high_school_government_and_politics", "gold": "A",
-    "label": {"direct": "A", "few_shot": "A", "oracle": "A"}
+    "subject": "high_school_government_and_politics",
+    "gold": "A",
+    "label": {
+      "direct": "A",
+      "few_shot": "A",
+      "oracle": "A"
+    },
+    "len_E": 372,
+    "len_X": 77,
+    "raw": {
+      "direct": " A\n\nExplanation: The boundary lines of congressional districts must be redrawn every 10 years to reflect population shifts indicated by the national census. This is because",
+      "few_shot": " A\n\nQuestion: Which of the following is a correct statement about the structure of the United States Congress?\nA. It consists of two chambers, the House and",
+      "oracle": " A\n\n************************************************************"
+    }
   },
   "9": {
-    "subject": "clinical_knowledge", "gold": "A",
-    "label": {"direct": "A", "few_shot": "A", "oracle": "A"}
+    "subject": "clinical_knowledge",
+    "gold": "A",
+    "label": {
+      "direct": "A",
+      "few_shot": "A",
+      "oracle": "A"
+    },
+    "len_E": 319,
+    "len_X": 64,
+    "raw": {
+      "direct": " A\n\nQuestion: Which of the following statements is correct regarding the structure of DNA?\nA. DNA is a double-stranded molecule.\nB. DNA is a",
+      "few_shot": " A\n\nQuestion: Which of the following is a correct statement about the structure of the human heart?\nA. The left atrium is larger than the right atr",
+      "oracle": " A\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion..Question.1.1.1.1.1.1.1.1.1."
+    }
   },
   "10": {
-    "subject": "logical_fallacies", "gold": "D",
-    "label": {"direct": "D", "few_shot": "D", "oracle": "D"}
+    "subject": "logical_fallacies",
+    "gold": "D",
+    "label": {
+      "direct": "D",
+      "few_shot": "D",
+      "oracle": "D"
+    },
+    "len_E": 358,
+    "len_X": 52,
+    "raw": {
+      "direct": " D\n\nQuestion: Which of the following fallacies happens when someone draws a conclusion that is simply a restatement of one of the premises?\nOptions:\nA.",
+      "few_shot": " D\n\nQuestion: Which of the following is a fallacy of composition?\nA. The fallacy of division\nB. The fallacy of composition\nC",
+      "oracle": " D\n\n\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n"
+    }
   },
   "11": {
-    "subject": "machine_learning", "gold": "B",
-    "label": {"direct": "B", "few_shot": "B", "oracle": "B"},
-    "note": "direct repeats 'Answer: B' then slides into a hallucinated new question ('Question: What is the correct answer for the question...') with no 'Answer:' scaffolding at all. This is the shape run_experiment_guide.md attributes to Few-shot only ('assumes the model may invent a new question'). Direct does it too here. Still unambiguous: first token is B."
+    "subject": "machine_learning",
+    "gold": "B",
+    "label": {
+      "direct": "B",
+      "few_shot": "B",
+      "oracle": "B"
+    },
+    "note": "direct repeats 'Answer: B' then slides into a hallucinated new question ('Question: What is the correct answer for the question...') with no 'Answer:' scaffolding at all. This is the shape run_experiment_guide.md attributes to Few-shot only ('assumes the model may invent a new question'). Direct does it too here. Still unambiguous: first token is B.",
+    "len_E": 582,
+    "len_X": 79,
+    "raw": {
+      "direct": " B\nAnswer: B\nAnswer: B\nAnswer: B\nAnswer: B\n\nQuestion: What is the correct answer for the question \"What is the",
+      "few_shot": " B\n\nQuestion: A 6-sided die is rolled 15 times and the results are: side 1 comes up 0 times; side 2",
+      "oracle": " B.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n"
+    }
   },
   "12": {
-    "subject": "formal_logic", "gold": "D",
-    "label": {"direct": "A", "few_shot": "A", "oracle": "A"},
-    "note": "direct answers A then immediately invents a new question with zero scaffolding, no 'Answer:' marker at all - just the letter then straight into new question text. Oracle's degeneration here is a repeated phrase lifted from the question itself ('Marco moves from Italy to Spain...'), not token/punctuation garbage - a distinct degeneration flavor worth having in the test set."
+    "subject": "formal_logic",
+    "gold": "D",
+    "label": {
+      "direct": "A",
+      "few_shot": "A",
+      "oracle": "A"
+    },
+    "note": "direct answers A then immediately invents a new question with zero scaffolding, no 'Answer:' marker at all - just the letter then straight into new question text. Oracle's degeneration here is a repeated phrase lifted from the question itself ('Marco moves from Italy to Spain...'), not token/punctuation garbage - a distinct degeneration flavor worth having in the test set.",
+    "len_E": 477,
+    "len_X": 63,
+    "raw": {
+      "direct": " A\nQuestion: Select the best translation into predicate logic. Marco moves from Italy to Spain. (i: Italy; m: Marco; s: Spain;",
+      "few_shot": " A\n\nQuestion:  Which of the following is the best translation into predicate logic? \nThe statement \"If a person is a doctor, then they are a",
+      "oracle": " A\n\nMarco moves from Italy to Spain from Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain"
+    }
   },
   "13": {
-    "subject": "high_school_psychology", "gold": "B",
-    "label": {"direct": "B", "few_shot": "B", "oracle": "B"}
+    "subject": "high_school_psychology",
+    "gold": "B",
+    "label": {
+      "direct": "B",
+      "few_shot": "B",
+      "oracle": "B"
+    },
+    "len_E": 409,
+    "len_X": 60,
+    "raw": {
+      "direct": " B\nAnswer:\nThe correct answer is B. a compulsion.\n\nExplanation: A compulsion is a repetitive, involuntary action that is performed to achieve a specific",
+      "few_shot": " B\n\nQuestion: Which of the following is a type of memory?\nA. short-term\nB. long-term\nC. episodic\nD. semantic",
+      "oracle": " B\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n"
+    }
   },
   "14": {
-    "subject": "public_relations", "gold": "C",
-    "label": {"direct": "A", "few_shot": "D", "oracle": "D"},
-    "note": "direct and few_shot/oracle genuinely disagree here (A vs D). This is condition divergence, not an extraction problem - keep as a case where extractor must not be tempted to reconcile conditions to the same letter."
+    "subject": "public_relations",
+    "gold": "C",
+    "label": {
+      "direct": "A",
+      "few_shot": "D",
+      "oracle": "D"
+    },
+    "note": "direct and few_shot/oracle genuinely disagree here (A vs D). This is condition divergence, not an extraction problem - keep as a case where extractor must not be tempted to reconcile conditions to the same letter.",
+    "len_E": 329,
+    "len_X": 57,
+    "raw": {
+      "direct": " A\nExplanation: The five-step model for circular evaluation is as follows: 1. Define the problem. 2. Identify the stakeholders. 3.",
+      "few_shot": " D\n\nQuestion: Which of the following is a correct statement about the role of the media in the public health crisis?\nA. The media should be responsible for",
+      "oracle": " D\n\nQuestion.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question"
+    }
   },
   "15": {
-    "subject": "medical_genetics", "gold": "B",
-    "label": {"direct": "B", "few_shot": "B", "oracle": "B"},
-    "note": "direct repeats the full clause 'The correct answer is B' several times rather than looping a token/punctuation fragment. Different degeneration flavor for the test set."
+    "subject": "medical_genetics",
+    "gold": "B",
+    "label": {
+      "direct": "B",
+      "few_shot": "B",
+      "oracle": "B"
+    },
+    "note": "direct repeats the full clause 'The correct answer is B' several times rather than looping a token/punctuation fragment. Different degeneration flavor for the test set.",
+    "len_E": 265,
+    "len_X": 40,
+    "raw": {
+      "direct": " B\nSo, the correct answer is B. The answer is B. The correct answer is B. The correct answer is B. The correct answer is B",
+      "few_shot": " B\n\nQuestion: Which of the following is a characteristic of a gene?\nA. It is a single strand.\nB. It is a double stranded.\nC",
+      "oracle": " B.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n"
+    }
   },
   "16": {
-    "subject": "clinical_knowledge", "gold": "A",
-    "label": {"direct": "A", "few_shot": "A", "oracle": "A"}
+    "subject": "clinical_knowledge",
+    "gold": "A",
+    "label": {
+      "direct": "A",
+      "few_shot": "A",
+      "oracle": "A"
+    },
+    "len_E": 319,
+    "len_X": 68,
+    "raw": {
+      "direct": " A\n\nQuestion: What is the purpose of the cuff on a tracheostomy tube?\nOptions:\nA. To create an air seal within the trache",
+      "few_shot": " A\n\nQuestion: Which of the following is a correct statement about the use of a tracheostomy tube?\nA. It should be placed in the tr",
+      "oracle": " A\n\nQuestionalsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealse"
+    }
   },
   "17": {
-    "subject": "abstract_algebra", "gold": "A",
-    "label": {"direct": "B", "few_shot": "C", "oracle": "C"},
-    "note": "direct invents a new question immediately after the letter, no scaffolding. direct (B) genuinely disagrees with few_shot/oracle (C) - condition divergence, not an extractor fault."
+    "subject": "abstract_algebra",
+    "gold": "A",
+    "label": {
+      "direct": "B",
+      "few_shot": "C",
+      "oracle": "C"
+    },
+    "note": "direct invents a new question immediately after the letter, no scaffolding. direct (B) genuinely disagrees with few_shot/oracle (C) - condition divergence, not an extractor fault.",
+    "len_E": 291,
+    "len_X": 91,
+    "raw": {
+      "direct": " B\nQuestion: Find the sum of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x)",
+      "few_shot": " C\n\nQuestion: Find the sum of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x)",
+      "oracle": " C\n\npolizers polers polers polers polers polers polers polers polers polers polers polers polers polers polers"
+    }
   },
   "18": {
-    "subject": "virology", "gold": "A",
-    "label": {"direct": "C", "few_shot": "C", "oracle": "C"}
+    "subject": "virology",
+    "gold": "A",
+    "label": {
+      "direct": "C",
+      "few_shot": "C",
+      "oracle": "C"
+    },
+    "len_E": 264,
+    "len_X": 48,
+    "raw": {
+      "direct": " C\nReason: The parvovirus family is targeted to reduce disease by developing new antivirals. The parvovirus family is a group",
+      "few_shot": " C\n\nQuestion: Which of the following is a characteristic of the influenza virus?\nA. It is a double-stranded RNA virus\nB. It is a",
+      "oracle": " C\n`\n`\n`\n`\n`\n`\n`\n`\n`\n`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    }
   },
   "19": {
-    "subject": "human_aging", "gold": "B",
-    "label": {"direct": "C", "few_shot": "B", "oracle": "B"},
-    "note": "direct raw is 'C. Infrequent (less than 40%)\\nReasoning:\\nAnswer: C\\n...' - letter glued directly to the option text with a period, then a later self-consistent restatement. direct (C) genuinely disagrees with few_shot/oracle (B)."
+    "subject": "human_aging",
+    "gold": "B",
+    "label": {
+      "direct": "C",
+      "few_shot": "B",
+      "oracle": "B"
+    },
+    "note": "direct raw is 'C. Infrequent (less than 40%)\\nReasoning:\\nAnswer: C\\n...' - letter glued directly to the option text with a period, then a later self-consistent restatement. direct (C) genuinely disagrees with few_shot/oracle (B).",
+    "len_E": 251,
+    "len_X": 65,
+    "raw": {
+      "direct": " C. Infrequent (less than 40%)\nReasoning:\nAnswer: C\nReasoning:\nThe loss of smell in adults 80 and",
+      "few_shot": " B\n\nQuestion: Which of the following is a type of memory?\nA. Short-term memory\nB. Long-term memory\nC. Working memory\nD",
+      "oracle": " B\n\n************************************************************"
+    }
   }
 }
