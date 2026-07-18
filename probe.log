@@ -1,0 +1,296 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+subjects: 57
+5700 rows, 5330 sound, 370 dropped
+  dropped bad_question_clarity: 132
+  dropped wrong_groundtruth: 106
+  dropped multiple_correct_answers: 39
+  dropped no_correct_answer: 36
+  dropped expert: 32
+  dropped bad_options_clarity: 25
+running 5330 samples
+
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/311 [00:00<01:03,  4.91it/s]
+Loading weights:   1%|          | 2/311 [00:00<01:16,  4.02it/s]
+Loading weights:  72%|███████▏  | 224/311 [00:00<00:00, 523.16it/s]
+Loading weights: 100%|██████████| 311/311 [00:00<00:00, 438.11it/s]
+======================================================================
+sample 0  subject=international_law  gold=C  len_E=528  len_X=100
+----------------------------------------------------------------------
+direct  cache=100  start_pos=100
+raw: ' A\n\nExplanation:\nThe contiguous zone is a zone in which the coastal State is permitted to prevent and punish infringements of customs, fiscal, immigration or sanitary laws'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=628  start_pos=628
+raw: ' C\n\nQuestion: What is the function of the contiguous zone?\nA. The contiguous zone functions as a security zone of the coastal State\nB. The contiguous'
+extracted: C
+----------------------------------------------------------------------
+oracle  cache=100  start_pos=628
+raw: ' C\n\nQuestionostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenostenosten'
+extracted: C
+======================================================================
+sample 1  subject=high_school_chemistry  gold=C  len_E=411  len_X=78
+----------------------------------------------------------------------
+direct  cache=78  start_pos=78
+raw: ' A\n\n**Step-by-Step Explanation:**\n\nStep 1: The reaction is written as 2Ag+(aq) + Fe(s) → 2'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=489  start_pos=489
+raw: ' B\n\nQuestion: A solution contains 0.00100 mol of NaCl and 0.00100 mol of CaCl'
+extracted: B
+----------------------------------------------------------------------
+oracle  cache=78  start_pos=489
+raw: ' B\n\nQuestion.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n'
+extracted: B
+======================================================================
+sample 2  subject=high_school_chemistry  gold=C  len_E=411  len_X=121
+----------------------------------------------------------------------
+direct  cache=121  start_pos=121
+raw: ' A\nAnswer:\nA\n\n**Step-by-Step Explanation:**\n\nThe decomposition of hypochlorous acid (HClO) into chlorine gas (Cl'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=532  start_pos=532
+raw: ' A\n\nQuestion: A solution contains 2.00 mole of acetic acid, CH3COOH, and 1.00 mole of calcium'
+extracted: A
+----------------------------------------------------------------------
+oracle  cache=121  start_pos=532
+raw: ' A.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nidden.\n\n****************'
+extracted: A
+======================================================================
+sample 3  subject=high_school_us_history  gold=A  len_E=1906  len_X=390
+----------------------------------------------------------------------
+direct  cache=390  start_pos=390
+raw: ' B\nAnswer:\nThe correct answer is B. The conclusion that best supports the information in the excerpt is that Lincoln won the Election of 1864'
+extracted: B
+----------------------------------------------------------------------
+few_shot  cache=2296  start_pos=2296
+raw: ' A\n\nQuestion: This question refers to the following information.\n"During the time of the American Revolution, the British and the French both had their own governments.'
+extracted: A
+----------------------------------------------------------------------
+oracle  cache=390  start_pos=2296
+raw: ' A\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n**\n'
+extracted: A
+======================================================================
+sample 4  subject=jurisprudence  gold=B  len_E=304  len_X=61
+----------------------------------------------------------------------
+direct  cache=61  start_pos=61
+raw: ' C\nAnswer:\nThe correct answer is C. An Aquinian concept of natural law.\n\n**Step-by-Step Explanation:**\n\n1. **Understanding the'
+extracted: C
+----------------------------------------------------------------------
+few_shot  cache=365  start_pos=365
+raw: " C\nAnswer:\nA\n\nQuestion: Which of the following statements best captures the nature of Fuller's 'inner morality of law'?\nA. A positivist"
+extracted: C
+----------------------------------------------------------------------
+oracle  cache=61  start_pos=365
+raw: ' C\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n'
+extracted: C
+======================================================================
+sample 5  subject=computer_security  gold=B  len_E=300  len_X=41
+----------------------------------------------------------------------
+direct  cache=41  start_pos=41
+raw: ' B. Condentiality\n\nExplanation: The Message condentiality or privacy means that the sender and the receiver expect that the message is not read by others.'
+extracted: B
+----------------------------------------------------------------------
+few_shot  cache=341  start_pos=341
+raw: ' B\n\nQuestion: Which of the following is not a type of encryption?\nA. AES\nB. DES\nC. RSA\nD. WEP\n'
+extracted: B
+----------------------------------------------------------------------
+oracle  cache=41  start_pos=341
+raw: ' B\n\nQuestionololololololololoolooloolooloolooloolooloolooloolooloolooloolooloolooloolooloolo'
+extracted: B
+======================================================================
+sample 6  subject=professional_psychology  gold=C  len_E=483  len_X=190
+----------------------------------------------------------------------
+direct  cache=190  start_pos=190
+raw: ' D\n\n**Reasoning:**\nThe question is about identifying the ethical standard that Dr. Black should follow based on her decision to divide the seminar into two parts'
+extracted: D
+----------------------------------------------------------------------
+few_shot  cache=673  start_pos=673
+raw: ' D\n\nQuestion: Which of the following is a characteristic of a sample?\nA. It is a subset of the population.\nB. It is a population.\n'
+extracted: D
+----------------------------------------------------------------------
+oracle  cache=190  start_pos=673
+raw: ' D\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
+extracted: D
+======================================================================
+sample 7  subject=high_school_european_history  gold=A  len_E=2440  len_X=301
+----------------------------------------------------------------------
+direct  cache=301  start_pos=301
+raw: ' A\nAnswer: A\nAnswer: A\nAnswer: A\nAnswer: A\n\nAnswer:\nAnswer: A\n\nAnswer:\nAnswer: A\n\nAnswer:\n'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=2741  start_pos=2741
+raw: ' A\n\nQuestion: This question refers to the following information.\nThe following is a list of events that occurred in the United States in the years 178'
+extracted: A
+----------------------------------------------------------------------
+oracle  cache=301  start_pos=2741
+raw: ' A\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\nA\n\n'
+extracted: A
+======================================================================
+sample 8  subject=high_school_government_and_politics  gold=A  len_E=372  len_X=77
+----------------------------------------------------------------------
+direct  cache=77  start_pos=77
+raw: ' A\n\nExplanation: The boundary lines of congressional districts must be redrawn every 10 years to reflect population shifts indicated by the national census. This is because'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=449  start_pos=449
+raw: ' A\n\nQuestion: Which of the following is a correct statement about the structure of the United States Congress?\nA. It consists of two chambers, the House and'
+extracted: A
+----------------------------------------------------------------------
+oracle  cache=77  start_pos=449
+raw: ' A\n\n************************************************************'
+extracted: A
+======================================================================
+sample 9  subject=clinical_knowledge  gold=A  len_E=319  len_X=64
+----------------------------------------------------------------------
+direct  cache=64  start_pos=64
+raw: ' A\n\nQuestion: Which of the following statements is correct regarding the structure of DNA?\nA. DNA is a double-stranded molecule.\nB. DNA is a'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=383  start_pos=383
+raw: ' A\n\nQuestion: Which of the following is a correct statement about the structure of the human heart?\nA. The left atrium is larger than the right atr'
+extracted: A
+----------------------------------------------------------------------
+oracle  cache=64  start_pos=383
+raw: ' A\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\nQuestion..Question.1.1.1.1.1.1.1.1.1.'
+extracted: A
+======================================================================
+sample 10  subject=logical_fallacies  gold=D  len_E=358  len_X=52
+----------------------------------------------------------------------
+direct  cache=52  start_pos=52
+raw: ' D\n\nQuestion: Which of the following fallacies happens when someone draws a conclusion that is simply a restatement of one of the premises?\nOptions:\nA.'
+extracted: D
+----------------------------------------------------------------------
+few_shot  cache=410  start_pos=410
+raw: ' D\n\nQuestion: Which of the following is a fallacy of composition?\nA. The fallacy of division\nB. The fallacy of composition\nC'
+extracted: D
+----------------------------------------------------------------------
+oracle  cache=52  start_pos=410
+raw: ' D\n\n\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n---\n\n'
+extracted: D
+======================================================================
+sample 11  subject=machine_learning  gold=B  len_E=582  len_X=79
+----------------------------------------------------------------------
+direct  cache=79  start_pos=79
+raw: ' B\nAnswer: B\nAnswer: B\nAnswer: B\nAnswer: B\n\nQuestion: What is the correct answer for the question "What is the'
+extracted: B
+----------------------------------------------------------------------
+few_shot  cache=661  start_pos=661
+raw: ' B\n\nQuestion: A 6-sided die is rolled 15 times and the results are: side 1 comes up 0 times; side 2'
+extracted: B
+----------------------------------------------------------------------
+oracle  cache=79  start_pos=661
+raw: ' B.\n\nQuestion.\n\nQuestion.\n\nQuestion.\n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n \n\n'
+extracted: B
+======================================================================
+sample 12  subject=formal_logic  gold=D  len_E=477  len_X=63
+----------------------------------------------------------------------
+direct  cache=63  start_pos=63
+raw: ' A\nQuestion: Select the best translation into predicate logic. Marco moves from Italy to Spain. (i: Italy; m: Marco; s: Spain;'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=540  start_pos=540
+raw: ' A\n\nQuestion:  Which of the following is the best translation into predicate logic? \nThe statement "If a person is a doctor, then they are a'
+extracted: A
+----------------------------------------------------------------------
+oracle  cache=63  start_pos=540
+raw: ' A\n\nMarco moves from Italy to Spain from Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain Italy Spain'
+extracted: A
+======================================================================
+sample 13  subject=high_school_psychology  gold=B  len_E=409  len_X=60
+----------------------------------------------------------------------
+direct  cache=60  start_pos=60
+raw: ' B\nAnswer:\nThe correct answer is B. a compulsion.\n\nExplanation: A compulsion is a repetitive, involuntary action that is performed to achieve a specific'
+extracted: B
+----------------------------------------------------------------------
+few_shot  cache=469  start_pos=469
+raw: ' B\n\nQuestion: Which of the following is a type of memory?\nA. short-term\nB. long-term\nC. episodic\nD. semantic'
+extracted: B
+----------------------------------------------------------------------
+oracle  cache=60  start_pos=469
+raw: ' B\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n:\n\n'
+extracted: B
+======================================================================
+sample 14  subject=public_relations  gold=C  len_E=329  len_X=57
+----------------------------------------------------------------------
+direct  cache=57  start_pos=57
+raw: ' A\nExplanation: The five-step model for circular evaluation is as follows: 1. Define the problem. 2. Identify the stakeholders. 3.'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=386  start_pos=386
+raw: ' D\n\nQuestion: Which of the following is a correct statement about the role of the media in the public health crisis?\nA. The media should be responsible for'
+extracted: D
+----------------------------------------------------------------------
+oracle  cache=57  start_pos=386
+raw: ' D\n\nQuestion.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question.Question'
+extracted: D
+======================================================================
+sample 15  subject=medical_genetics  gold=B  len_E=265  len_X=40
+----------------------------------------------------------------------
+direct  cache=40  start_pos=40
+raw: ' B\nSo, the correct answer is B. The answer is B. The correct answer is B. The correct answer is B. The correct answer is B'
+extracted: B
+----------------------------------------------------------------------
+few_shot  cache=305  start_pos=305
+raw: ' B\n\nQuestion: Which of the following is a characteristic of a gene?\nA. It is a single strand.\nB. It is a double stranded.\nC'
+extracted: B
+----------------------------------------------------------------------
+oracle  cache=40  start_pos=305
+raw: ' B.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n.\n\n'
+extracted: B
+======================================================================
+sample 16  subject=clinical_knowledge  gold=A  len_E=319  len_X=68
+----------------------------------------------------------------------
+direct  cache=68  start_pos=68
+raw: ' A\n\nQuestion: What is the purpose of the cuff on a tracheostomy tube?\nOptions:\nA. To create an air seal within the trache'
+extracted: A
+----------------------------------------------------------------------
+few_shot  cache=387  start_pos=387
+raw: ' A\n\nQuestion: Which of the following is a correct statement about the use of a tracheostomy tube?\nA. It should be placed in the tr'
+extracted: A
+----------------------------------------------------------------------
+oracle  cache=68  start_pos=387
+raw: ' A\n\nQuestionalsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealsealse'
+extracted: A
+======================================================================
+sample 17  subject=abstract_algebra  gold=A  len_E=291  len_X=91
+----------------------------------------------------------------------
+direct  cache=91  start_pos=91
+raw: ' B\nQuestion: Find the sum of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x)'
+extracted: B
+----------------------------------------------------------------------
+few_shot  cache=382  start_pos=382
+raw: ' C\n\nQuestion: Find the sum of the given polynomials in the given polynomial ring. f(x) = 4x - 5, g(x)'
+extracted: C
+----------------------------------------------------------------------
+oracle  cache=91  start_pos=382
+raw: ' C\n\npolizers polers polers polers polers polers polers polers polers polers polers polers polers polers polers'
+extracted: C
+======================================================================
+sample 18  subject=virology  gold=A  len_E=264  len_X=48
+----------------------------------------------------------------------
+direct  cache=48  start_pos=48
+raw: ' C\nReason: The parvovirus family is targeted to reduce disease by developing new antivirals. The parvovirus family is a group'
+extracted: C
+----------------------------------------------------------------------
+few_shot  cache=312  start_pos=312
+raw: ' C\n\nQuestion: Which of the following is a characteristic of the influenza virus?\nA. It is a double-stranded RNA virus\nB. It is a'
+extracted: C
+----------------------------------------------------------------------
+oracle  cache=48  start_pos=312
+raw: ' C\n`\n`\n`\n`\n`\n`\n`\n`\n`\n`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
+extracted: C
+======================================================================
+sample 19  subject=human_aging  gold=B  len_E=251  len_X=65
+----------------------------------------------------------------------
+direct  cache=65  start_pos=65
+raw: ' C. Infrequent (less than 40%)\nReasoning:\nAnswer: C\nReasoning:\nThe loss of smell in adults 80 and'
+extracted: C
+----------------------------------------------------------------------
+few_shot  cache=316  start_pos=316
+raw: ' B\n\nQuestion: Which of the following is a type of memory?\nA. Short-term memory\nB. Long-term memory\nC. Working memory\nD'
+extracted: B
+----------------------------------------------------------------------
+oracle  cache=65  start_pos=316
+raw: ' B\n\n************************************************************'
+extracted: B

@@ -1,0 +1,92 @@
+{
+  "_readme": "Hand-labeled by reading raw model output directly (run_experiment_guide.md Step 2), before trusting extractor.py output. label = the letter a human reading raw text judges the model actually answered for THIS question, ignoring anything the model generates after that first coherent answer (invented questions, restated letters, degeneration loops). null means genuinely ambiguous or unparseable to a human, not just to the current extractor. 'note' flags a raw-text shape worth keeping in mind for extractor edge cases; it is not a defect report.",
+  "0": {
+    "subject": "international_law", "gold": "C",
+    "label": {"direct": "A", "few_shot": "C", "oracle": "C"}
+  },
+  "1": {
+    "subject": "high_school_chemistry", "gold": "C",
+    "label": {"direct": "A", "few_shot": "B", "oracle": "B"}
+  },
+  "2": {
+    "subject": "high_school_chemistry", "gold": "C",
+    "label": {"direct": "A", "few_shot": "A", "oracle": "A"},
+    "note": "direct restates the same letter ('A\\nAnswer:\\nA') before explanation. No contradiction, but a shape worth having in the test set."
+  },
+  "3": {
+    "subject": "high_school_us_history", "gold": "A",
+    "label": {"direct": "B", "few_shot": "A", "oracle": "A"}
+  },
+  "4": {
+    "subject": "jurisprudence", "gold": "B",
+    "label": {"direct": "C", "few_shot": "C", "oracle": "C"},
+    "note": "few_shot raw is 'C\\nAnswer:\\nA\\n\\nQuestion: ...' - model states C first, then contradicts itself with 'Answer:\\nA' while sliding into a hallucinated new question. Human reading judges C as the real answer (first token, before the self-contradiction). Kept as an adversarial case for test_extractor_probe.py."
+  },
+  "5": {
+    "subject": "computer_security", "gold": "B",
+    "label": {"direct": "B", "few_shot": "B", "oracle": "B"}
+  },
+  "6": {
+    "subject": "professional_psychology", "gold": "C",
+    "label": {"direct": "D", "few_shot": "D", "oracle": "D"}
+  },
+  "7": {
+    "subject": "high_school_european_history", "gold": "A",
+    "label": {"direct": "A", "few_shot": "A", "oracle": "A"},
+    "note": "direct degenerates into 'Answer: A' repeated, no explanation at all. First evidence that Direct (not just Oracle) can collapse into a loop. Still unambiguous: every repeat is the same letter."
+  },
+  "8": {
+    "subject": "high_school_government_and_politics", "gold": "A",
+    "label": {"direct": "A", "few_shot": "A", "oracle": "A"}
+  },
+  "9": {
+    "subject": "clinical_knowledge", "gold": "A",
+    "label": {"direct": "A", "few_shot": "A", "oracle": "A"}
+  },
+  "10": {
+    "subject": "logical_fallacies", "gold": "D",
+    "label": {"direct": "D", "few_shot": "D", "oracle": "D"}
+  },
+  "11": {
+    "subject": "machine_learning", "gold": "B",
+    "label": {"direct": "B", "few_shot": "B", "oracle": "B"},
+    "note": "direct repeats 'Answer: B' then slides into a hallucinated new question ('Question: What is the correct answer for the question...') with no 'Answer:' scaffolding at all. This is the shape run_experiment_guide.md attributes to Few-shot only ('assumes the model may invent a new question'). Direct does it too here. Still unambiguous: first token is B."
+  },
+  "12": {
+    "subject": "formal_logic", "gold": "D",
+    "label": {"direct": "A", "few_shot": "A", "oracle": "A"},
+    "note": "direct answers A then immediately invents a new question with zero scaffolding, no 'Answer:' marker at all - just the letter then straight into new question text. Oracle's degeneration here is a repeated phrase lifted from the question itself ('Marco moves from Italy to Spain...'), not token/punctuation garbage - a distinct degeneration flavor worth having in the test set."
+  },
+  "13": {
+    "subject": "high_school_psychology", "gold": "B",
+    "label": {"direct": "B", "few_shot": "B", "oracle": "B"}
+  },
+  "14": {
+    "subject": "public_relations", "gold": "C",
+    "label": {"direct": "A", "few_shot": "D", "oracle": "D"},
+    "note": "direct and few_shot/oracle genuinely disagree here (A vs D). This is condition divergence, not an extraction problem - keep as a case where extractor must not be tempted to reconcile conditions to the same letter."
+  },
+  "15": {
+    "subject": "medical_genetics", "gold": "B",
+    "label": {"direct": "B", "few_shot": "B", "oracle": "B"},
+    "note": "direct repeats the full clause 'The correct answer is B' several times rather than looping a token/punctuation fragment. Different degeneration flavor for the test set."
+  },
+  "16": {
+    "subject": "clinical_knowledge", "gold": "A",
+    "label": {"direct": "A", "few_shot": "A", "oracle": "A"}
+  },
+  "17": {
+    "subject": "abstract_algebra", "gold": "A",
+    "label": {"direct": "B", "few_shot": "C", "oracle": "C"},
+    "note": "direct invents a new question immediately after the letter, no scaffolding. direct (B) genuinely disagrees with few_shot/oracle (C) - condition divergence, not an extractor fault."
+  },
+  "18": {
+    "subject": "virology", "gold": "A",
+    "label": {"direct": "C", "few_shot": "C", "oracle": "C"}
+  },
+  "19": {
+    "subject": "human_aging", "gold": "B",
+    "label": {"direct": "C", "few_shot": "B", "oracle": "B"},
+    "note": "direct raw is 'C. Infrequent (less than 40%)\\nReasoning:\\nAnswer: C\\n...' - letter glued directly to the option text with a period, then a later self-consistent restatement. direct (C) genuinely disagrees with few_shot/oracle (B)."
+  }
+}
