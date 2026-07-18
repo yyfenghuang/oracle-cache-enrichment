@@ -46,16 +46,46 @@ def _cut_at_first(text: str, markers: tuple[str, ...]) -> str:
 def extract_direct(raw_output: str) -> str | None:
     """Parse Direct condition output.
 
-    Failure shape: the model opens with prose or punctuation before stating
+    Failure shape 1: the model opens with prose or punctuation before stating
     the letter. "The correct answer is B." or "Answer: B". The letter is
-    there, it just is not first.
+    there, it just is not first. No cut is needed for this: nothing earlier
+    in the text can produce a stray letter, so the first standalone letter
+    already is the answer.
 
-    No truncation is needed. The first standalone letter in the output is the
-    answer, because with no exemplar block there is nothing else in the text
-    that could produce a stray letter. If the model refuses or rambles without
-    ever committing to a letter, the answer is None, not a guess.
+    Failure shape 2 (confirmed by tests/test_extractor_synthetic.py, not
+    observed in the 20-sample probe): the model restates two or more of the
+    answer choices ("A. Paris\\nB. London\\n...") before committing to one.
+    Reading left to right without accounting for this picks up the first
+    restated choice, not the model's answer. _skip_choice_list removes a
+    restated-choice block from the front of the text before the letter
+    search runs. The two-line threshold matters: a single "B. short
+    justification" line is the real answer in choice-format, not a restated
+    list, and must not be skipped.
     """
-    return _first_letter(raw_output)
+    span = _skip_choice_list(raw_output)
+    return _first_letter(span)
+
+
+# A line that looks like a restated answer choice: "A. Paris", "B) London",
+# "(C): Berlin". Matched only at the start of a line.
+_CHOICE_LIST_LINE = re.compile(r"^\s*\(?[ABCD]\)?[.):]\s*\S")
+
+
+def _skip_choice_list(text: str, min_lines: int = 2) -> str:
+    """Skip a restated multiple-choice block at the start of the output.
+
+    Returns text unchanged unless at least `min_lines` consecutive lines from
+    the start match the choice-line shape. That threshold is what tells a
+    restated list ("A. Paris\\nB. London\\n...") apart from the model's own
+    answer already in choice-format ("B. This is because...", one line).
+    """
+    lines = text.split("\n")
+    idx = 0
+    while idx < len(lines) and _CHOICE_LIST_LINE.match(lines[idx]):
+        idx += 1
+    if idx >= min_lines:
+        return "\n".join(lines[idx:])
+    return text
 
 
 # Markers that signal the model has stopped answering and started generating a
