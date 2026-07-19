@@ -118,17 +118,20 @@ results.append(check(
 ))
 
 results.append(check(
-    "oracle_INVARIANT_would_only_break_if_decode_loop_changed",
+    "oracle_INVARIANT_would_fail_safe_if_decode_loop_changed",
     extract_oracle,
     "repeat fragment repeat fragment D repeat fragment\nC",
-    "D",
-    "This case is constructed to fail on purpose: it simulates degenerate "
-    "content appearing BEFORE the answer, which decode_loop's structure "
-    "(see test_decode_loop_first_token_invariant.py) makes impossible today. "
-    "It exists as a tripwire: if this string were ever built from real model "
-    "output, extract_oracle would silently return the wrong letter, so any "
-    "future change to decode_loop's control flow must be checked against "
-    "the invariant test, not assumed safe.",
+    None,
+    "Constructed to simulate degenerate content appearing BEFORE the answer, "
+    "which decode_loop's structure (test_decode_loop_first_token_invariant.py) "
+    "makes impossible today. Under the old _first_letter (leftmost regex "
+    "match), this case silently returned the wrong letter 'D'. Under "
+    "_first_char_letter (checks only the literal first character), it "
+    "returns None instead: a safe 'no answer found' rather than a "
+    "confidently wrong one. If this string were ever built from real model "
+    "output, a None here should prompt going back to the probe, not be "
+    "mistaken for a crash. Kept as a tripwire for decode_loop control-flow "
+    "changes either way.",
 ))
 
 # --- extract_few_shot: control case exercising the multi-letter cut span (sample 4 shape) ---
@@ -141,6 +144,77 @@ results.append(check(
     "matches sample 4: model states C, then contradicts with 'Answer:\\nA', "
     "then hallucinates a new question. Cut removes the hallucinated question "
     "block; leftmost letter in what remains (C) wins over the later A.",
+))
+
+# --- extract_oracle / extract_few_shot: letter glued directly to degenerate
+#     continuation with no boundary character, found in results/run_2026-07-19_n2000.json ---
+
+results.append(check(
+    "oracle_GAP_letter_glued_to_word_no_boundary",
+    extract_oracle,
+    " CANNOT LIMIT THE INFRACANANANANANANANANANANANANANANANANANANAN",
+    "C",
+    "REAL DATA, sample 412 of the n=2000 run. Degenerate continuation glued "
+    "directly onto the answer letter with zero separator, forming what reads "
+    "as the word 'CANNOT'. _first_letter's boundary requirement missed this "
+    "entirely (returned None on a clearly-answered sample). Fixed by "
+    "_first_char_letter, justified by the same first-token invariant as "
+    "above.",
+))
+
+results.append(check(
+    "oracle_GAP_letter_glued_to_backtick_loop",
+    extract_oracle,
+    " C`.\n\n`.`.`.`.`.`.`.`.`.`.`.`.`.",
+    "C",
+    "REAL DATA, sample 421 of the n=2000 run. Backtick is not in "
+    "_first_letter's boundary character class, so 'C`.' was missed too.",
+))
+
+results.append(check(
+    "oracle_GAP_letter_glued_to_malformed_unicode",
+    extract_oracle,
+    " B\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\u00b3\u00b3\u00b3",
+    "B",
+    "REAL DATA, sample 495 of the n=2000 run. Malformed decode bytes glued "
+    "onto the letter with no boundary character.",
+))
+
+# --- extract_direct: \boxed{LETTER} notation, found in results/run_2026-07-19_n2000.json ---
+
+results.append(check(
+    "direct_GAP_boxed_letter_notation",
+    extract_direct,
+    " \\boxed{C}\nAnswer:\nTo solve the problem, we are given the operation...",
+    "C",
+    "REAL DATA, sample 1350 of the n=2000 run. Math-reasoning models "
+    "sometimes answer in LaTeX \\boxed{} notation. '}' is not a boundary "
+    "character _first_letter accepts, so the letter was missed even though "
+    "unambiguous. Fixed by a _BOXED_LETTER fallback tried only after the "
+    "primary letter search fails.",
+))
+
+results.append(check(
+    "direct_control_boxed_non_letter_stays_none",
+    extract_direct,
+    " 46\nSo, the answer is \\boxed{46}\nAnswer: \\boxed{46}",
+    None,
+    "REAL DATA, sample 1510 of the n=2000 run. A boxed NUMBER is not a "
+    "mis-parsed letter - Direct has no obligation to answer in letter form, "
+    "and this None is correct, not a gap. Regression guard: the boxed "
+    "fallback must not turn this into a wrong letter.",
+))
+
+results.append(check(
+    "direct_control_truncated_reasoning_stays_none",
+    extract_direct,
+    " Let's see. The question is asking about the world history event that "
+    "caused the Soviet Union to enter Korea. The passage mentions that "
+    "Bonesteel was considering the",
+    None,
+    "REAL DATA, sample 380 of the n=2000 run. Reasoning cut off by the "
+    "32-token budget before stating a letter. This None is correct: no "
+    "answer was ever produced, this is not an extraction failure.",
 ))
 
 print()

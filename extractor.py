@@ -43,6 +43,42 @@ def _cut_at_first(text: str, markers: tuple[str, ...]) -> str:
     return text[:cut]
 
 
+def _first_char_letter(text: str) -> str | None:
+    """Return the answer letter if it is literally the first character of
+    text (after stripping leading whitespace and an optional opening paren).
+
+    Used only by extract_few_shot and extract_oracle. Both conditions decode
+    from a shared `first_logits` computed once during the unsliced E+X
+    prefill (see run_experiment.py's run_sample/decode_loop); the first
+    generated token - the answer letter - is therefore always token 0 of
+    raw_output for these two conditions specifically, proven structurally in
+    tests/test_decode_loop_first_token_invariant.py, not just observed. That
+    guarantee is what makes checking the literal first character safe here:
+    whatever comes immediately after it cannot change whether it is the
+    answer.
+
+    _first_letter's boundary requirement (a stop character right after the
+    letter) produces false negatives when degenerate continuation glues
+    directly onto the letter with no separator: "C" immediately followed by
+    "ANNOT LIMIT..." reads as the word "CANNOT" to a boundary-based regex,
+    likewise "B" followed straight into malformed unicode bytes. Confirmed
+    against real run data (results/run_2026-07-19_n2000.json): 10 samples
+    where extract_oracle returned None despite the model's first character
+    being unambiguously the same answer letter Few-shot extracted from the
+    identical first token. extract_direct does not get this treatment: it
+    has no such guarantee, and blindly trusting its first character would
+    turn correct Nones (truncated reasoning, unrelated opening prose) into
+    wrong letters instead.
+    """
+    stripped = text.lstrip()
+    if not stripped:
+        return None
+    idx = 1 if stripped[0] == "(" else 0
+    if idx < len(stripped) and stripped[idx] in VALID_LETTERS:
+        return stripped[idx]
+    return None
+
+
 def extract_direct(raw_output: str) -> str | None:
     """Parse Direct condition output.
 
@@ -61,9 +97,27 @@ def extract_direct(raw_output: str) -> str | None:
     search runs. The two-line threshold matters: a single "B. short
     justification" line is the real answer in choice-format, not a restated
     list, and must not be skipped.
+
+    Failure shape 3 (confirmed against results/run_2026-07-19_n2000.json):
+    on math subjects, the model sometimes reasons in LaTeX and states its
+    final answer as "\\boxed{D}" rather than a bare letter. "}" is not a
+    boundary character _first_letter accepts, so the letter is missed even
+    though it is unambiguous. Checked as a fallback, not the primary path,
+    since most Direct answers are not boxed and the bare-letter case should
+    not pay for a regex it does not need. A boxed non-letter ("\\boxed{46}")
+    correctly still yields None: Direct has no obligation to answer in
+    letter form, and a boxed number is not a mis-parsed letter, it is a
+    different kind of answer that this parser is not meant to recover.
     """
     span = _skip_choice_list(raw_output)
-    return _first_letter(span)
+    letter = _first_letter(span)
+    if letter is not None:
+        return letter
+    boxed = _BOXED_LETTER.search(span)
+    return boxed.group(1) if boxed else None
+
+
+_BOXED_LETTER = re.compile(r"\\boxed\{([ABCD])\}")
 
 
 # A line that looks like a restated answer choice: "A. Paris", "B) London",
@@ -106,12 +160,13 @@ def extract_few_shot(raw_output: str) -> str | None:
     reads the whole output can pick up a letter belonging to a question the
     model made up.
 
-    Cut at the first new-question marker, then take the first letter in what
-    remains. Everything after the cut is the model imitating the exemplar
-    format, not answering.
+    Cut at the first new-question marker, then take the answer letter from
+    what remains. _first_char_letter, not _first_letter: see its docstring
+    for why checking the literal first character is safe and necessary for
+    this condition specifically.
     """
     answer_span = _cut_at_first(raw_output, _NEW_QUESTION_MARKERS)
-    return _first_letter(answer_span)
+    return _first_char_letter(answer_span)
 
 
 def extract_oracle(raw_output: str) -> str | None:
@@ -124,9 +179,14 @@ def extract_oracle(raw_output: str) -> str | None:
 
     Degeneration is detected structurally, by a line repeating, rather than by
     matching a fixed marker. A loop has no fixed vocabulary to match against.
+
+    _first_char_letter, not _first_letter: the loop can glue directly onto
+    the answer letter with no boundary character at all ("C" + "ANNOT LIMIT
+    THE INFRA..." reading as one word). See _first_char_letter's docstring
+    for why checking the literal first character is safe for this condition.
     """
     answer_span = _cut_at_loop(raw_output)
-    return _first_letter(answer_span)
+    return _first_char_letter(answer_span)
 
 
 def _cut_at_loop(text: str, min_repeats: int = 2) -> str:
