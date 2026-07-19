@@ -5,6 +5,8 @@
 sandbox/
 *sandbox*.ipynb
 *CHANGELOG*.md
+*temp*.py
+*capture*.py
 
 # Python
 __pycache__/
@@ -36,4 +38,3 @@ venv/
 
 # Ignore unnecessary files
 *.log
-*.txt   
