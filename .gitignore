@@ -3,6 +3,8 @@
 # live here until something is finished enough to promote into the
 # tracked structure (cache_enrichment.py, tests/, notebook/, assets/).
 sandbox/
+*sandbox*.ipynb
+*CHANGELOG*.md
 
 # Python
 __pycache__/
@@ -31,4 +33,7 @@ venv/
 *.bin
 *.pt
 *.ckpt
-.log
+
+# Ignore unnecessary files
+*.log
+*.txt   
